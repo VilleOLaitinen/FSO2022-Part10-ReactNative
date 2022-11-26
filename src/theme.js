@@ -7,6 +7,7 @@ const theme = {
     appBar: "#24292e",
     buttonBlue: "#3388FF",
     white: "#FFFFFF",
+    mainBackground: "FFFFFF",
   },
   fontSizes: {
     body: 14,
