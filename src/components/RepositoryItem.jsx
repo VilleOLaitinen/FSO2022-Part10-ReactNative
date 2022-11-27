@@ -1,11 +1,15 @@
 import { View, Image, StyleSheet } from "react-native";
 import Text from "./Text";
+import theme from "../theme";
 
 const NumberFormatter = (number) => {
   return number > 999 ? (number / 1000).toFixed(1) + "k" : number;
 };
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: theme.colors.containerBackground,
+  },
   containerRow: {
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -47,7 +51,7 @@ const RepositoryItem = ({
   ownerAvatarUrl,
 }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.containerRow}>
         <Image style={styles.avatar} source={{ uri: ownerAvatarUrl }} />
         <View style={styles.containerDescriptionClm}>

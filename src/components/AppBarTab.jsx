@@ -1,5 +1,12 @@
+import { StyleSheet } from "react-native";
 import Text from "./Text";
 import { Link } from "react-router-native";
+
+const styles = StyleSheet.create({
+  appBarTab: {
+    marginHorizontal: 15,
+  },
+});
 
 const AppBarTab = ({ label, route }) => {
   return (
@@ -8,7 +15,7 @@ const AppBarTab = ({ label, route }) => {
         fontSize="subheading"
         fontWeight="bold"
         color="appBar"
-        style={{ paddingRight: 15 }}
+        style={styles.appBarTab}
       >
         {label}
       </Text>
