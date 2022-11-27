@@ -3,6 +3,7 @@ import Text from "./Text";
 import theme from "../theme";
 import { Formik } from "formik";
 import FormikTextInput from "./FormikTextInput";
+import * as yup from "yup";
 
 const styles = StyleSheet.create({
   container: {
@@ -35,6 +36,11 @@ const initialValues = {
   password: "",
 };
 
+const validationSchema = yup.object().shape({
+  username: yup.string().required("Username is required"),
+  password: yup.string().required("Password is required"),
+});
+
 const onSubmit = (values) => {
   console.log(values);
 };
@@ -43,7 +49,7 @@ const SignInForm = ({ onSubmit }) => {
   return (
     <View style={styles.container}>
       <FormikTextInput
-        name="name"
+        name="username"
         placeholder="Username"
         style={styles.field}
       />
@@ -69,7 +75,11 @@ const SignInForm = ({ onSubmit }) => {
 
 const SignIn = () => {
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
       {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
     </Formik>
   );
