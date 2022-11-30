@@ -27,7 +27,6 @@ const useRepositories = () => {
     repositories,
     loading,
     refetch: fetchRepositories,
-    hookState: repositories,
   };
 };
 
