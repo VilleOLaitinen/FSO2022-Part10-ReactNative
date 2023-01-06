@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
-  const { data, error, loading, refetch } = useQuery(ME);
+  // error, loading, refetch
+  const { data } = useQuery(ME);
 
   return (
     <View style={styles.container}>

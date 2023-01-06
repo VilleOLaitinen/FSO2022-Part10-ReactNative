@@ -51,13 +51,18 @@ const RepositoryItem = ({
   ownerAvatarUrl,
 }) => {
   return (
-    <View style={styles.container}>
+    <View testID="repositoryItem" style={styles.container}>
       <View style={styles.containerRow}>
         <Image style={styles.avatar} source={{ uri: ownerAvatarUrl }} />
         <View style={styles.containerDescriptionClm}>
-          <Text fontWeight="bold">{fullName}</Text>
-          <Text color="textSecondary">{description}</Text>
+          <Text testID="repoItemFullName" fontWeight="bold">
+            {fullName}
+          </Text>
+          <Text testID="repoItemDescription" color="textSecondary">
+            {description}
+          </Text>
           <Text
+            testID="repoItemLanguage"
             style={styles.languageText}
             color="appBar"
             backgroundColor="primary"
@@ -69,19 +74,27 @@ const RepositoryItem = ({
 
       <View style={styles.containerSubRow}>
         <View style={styles.containerColumn}>
-          <Text fontWeight="bold">{NumberFormatter(stargazersCount)}</Text>
+          <Text testID="repoItemStars" fontWeight="bold">
+            {NumberFormatter(stargazersCount)}
+          </Text>
           <Text color="textSecondary">Stars</Text>
         </View>
         <View style={styles.containerColumn}>
-          <Text fontWeight="bold">{NumberFormatter(forksCount)}</Text>
+          <Text testID="repoItemForks" fontWeight="bold">
+            {NumberFormatter(forksCount)}
+          </Text>
           <Text color="textSecondary">Forks</Text>
         </View>
         <View style={styles.containerColumn}>
-          <Text fontWeight="bold">{reviewCount}</Text>
+          <Text testID="repoItemReviews" fontWeight="bold">
+            {reviewCount}
+          </Text>
           <Text color="textSecondary">Reviews</Text>
         </View>
         <View style={styles.containerColumn}>
-          <Text fontWeight="bold">{ratingAverage}</Text>
+          <Text testID="repoItemRating" fontWeight="bold">
+            {ratingAverage}
+          </Text>
           <Text color="textSecondary">Rating</Text>
         </View>
       </View>
