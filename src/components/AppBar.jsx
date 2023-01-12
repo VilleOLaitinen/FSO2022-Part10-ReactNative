@@ -23,12 +23,13 @@ const styles = StyleSheet.create({
 const AppBar = () => {
   // error, loading, refetch
   const { data } = useQuery(ME);
+  const currentUser = data?.me;
 
   return (
     <View style={styles.container}>
       <ScrollView horizontal style={styles.scrollView}>
         <AppBarTab label={"Repositories"} route={"/"} />
-        {data.me === null ? (
+        {currentUser === null ? (
           <AppBarTab label={"Sign in"} route={"signin"} />
         ) : (
           <SignOutTab />
