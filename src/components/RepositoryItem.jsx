@@ -1,6 +1,7 @@
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, Pressable } from "react-native";
 import Text from "./Text";
 import theme from "../theme";
+import * as Linking from "expo-linking";
 
 const NumberFormatter = (number) => {
   return number > 999 ? (number / 1000).toFixed(1) + "k" : number;
@@ -38,6 +39,11 @@ const styles = StyleSheet.create({
     height: 35,
     borderRadius: 4,
   },
+  gitHubButton: {
+    alignSelf: "center",
+    borderRadius: 4,
+    padding: 15,
+  },
 });
 
 const RepositoryItem = ({
@@ -49,6 +55,8 @@ const RepositoryItem = ({
   ratingAverage,
   reviewCount,
   ownerAvatarUrl,
+  showUrlButton,
+  url,
 }) => {
   return (
     <View testID="repositoryItem" style={styles.container}>
@@ -98,6 +106,20 @@ const RepositoryItem = ({
           <Text color="textSecondary">Rating</Text>
         </View>
       </View>
+      {showUrlButton ? (
+        <View style={styles.containerSubRow}>
+          <Pressable onPress={() => Linking.openURL(`${url}`)}>
+            <Text
+              fontWeight="bold"
+              color="appBar"
+              backgroundColor="primary"
+              style={styles.gitHubButton}
+            >
+              Open in GitHub
+            </Text>
+          </Pressable>
+        </View>
+      ) : null}
     </View>
   );
 };
