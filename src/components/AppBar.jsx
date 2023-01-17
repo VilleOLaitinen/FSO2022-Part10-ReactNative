@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     flexDirection: "row",
     paddingTop: Constants.statusBarHeight,
-    paddingBottom: Constants.statusBarHeight,
-    paddingLeft: Constants.statusBarHeight,
+    paddingBottom: 15,
+    paddingLeft: 10,
     backgroundColor: theme.colors.appBar,
   },
   scrollView: {
@@ -32,7 +32,10 @@ const AppBar = () => {
         {currentUser === null ? (
           <AppBarTab label={"Sign in"} route={"signin"} />
         ) : (
-          <SignOutTab />
+          <>
+            <AppBarTab label={"Create a review"} route={"create-review"} />
+            <SignOutTab />
+          </>
         )}
       </ScrollView>
     </View>

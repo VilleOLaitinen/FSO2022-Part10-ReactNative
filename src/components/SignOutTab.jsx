@@ -2,6 +2,7 @@ import { StyleSheet, Pressable } from "react-native";
 import Text from "./Text";
 import useAuthStorage from "../hooks/useAuthStorage";
 import { useApolloClient } from "@apollo/client";
+import { useNavigate } from "react-router-native";
 
 const styles = StyleSheet.create({
   appBarTab: {
@@ -12,10 +13,12 @@ const styles = StyleSheet.create({
 const SignOutTab = () => {
   const authStorage = useAuthStorage();
   const client = useApolloClient();
+  const navigate = useNavigate();
 
   const logOut = async () => {
     await authStorage.removeAccessToken();
-    client.resetStore();
+    await client.resetStore();
+    navigate("/");
   };
 
   return (
