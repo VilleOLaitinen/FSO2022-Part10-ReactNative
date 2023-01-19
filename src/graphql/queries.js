@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_REPOSITORIES = gql`
-  query {
-    repositories {
+  query Repositories($searchKeyword: String) {
+    repositories(searchKeyword: $searchKeyword) {
       edges {
         node {
           description
@@ -22,8 +22,12 @@ export const GET_REPOSITORIES = gql`
 `;
 
 export const GET_REPOS_HIGHEST_RATED = gql`
-  query {
-    repositories(orderBy: RATING_AVERAGE, orderDirection: DESC) {
+  query Repositories($searchKeyword: String) {
+    repositories(
+      orderBy: RATING_AVERAGE
+      orderDirection: DESC
+      searchKeyword: $searchKeyword
+    ) {
       edges {
         node {
           description
@@ -43,8 +47,12 @@ export const GET_REPOS_HIGHEST_RATED = gql`
 `;
 
 export const GET_REPOS_LOWEST_RATED = gql`
-  query {
-    repositories(orderBy: RATING_AVERAGE, orderDirection: ASC) {
+  query Repositories($searchKeyword: String) {
+    repositories(
+      orderBy: RATING_AVERAGE
+      orderDirection: ASC
+      searchKeyword: $searchKeyword
+    ) {
       edges {
         node {
           description

@@ -6,7 +6,7 @@ import {
   GET_REPOS_LOWEST_RATED,
 } from "../graphql/queries";
 
-const useRepositories = (sort) => {
+const useRepositories = (sort, value) => {
   let query = GET_REPOSITORIES;
 
   if (sort === "highest") {
@@ -16,8 +16,8 @@ const useRepositories = (sort) => {
   }
 
   // const [repositories, setRepositories] = useState();
-
   const { data, error, loading, refetch } = useQuery(query, {
+    variables: { searchKeyword: value },
     fetchPolicy: "cache-and-network",
   });
 

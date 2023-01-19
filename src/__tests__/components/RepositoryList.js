@@ -4,6 +4,8 @@ import { RepositoryListContainer } from "../../components/RepositoryList";
 describe("RepositoryList", () => {
   describe("RepositoryListContainer", () => {
     it("renders repository information correctly", () => {
+      const mockHeader = jest.fn();
+
       const repositories = {
         totalCount: 8,
         pageInfo: {
@@ -48,7 +50,10 @@ describe("RepositoryList", () => {
       };
 
       const { getAllByTestId } = render(
-        <RepositoryListContainer repositories={repositories} />
+        <RepositoryListContainer
+          repositories={repositories}
+          header={mockHeader}
+        />
       );
 
       const repositoryItems = getAllByTestId("repositoryItem");
