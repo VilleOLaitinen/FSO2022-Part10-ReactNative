@@ -1,11 +1,23 @@
 //import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { GET_REPOSITORIES } from "../graphql/queries";
+import {
+  GET_REPOSITORIES,
+  GET_REPOS_HIGHEST_RATED,
+  GET_REPOS_LOWEST_RATED,
+} from "../graphql/queries";
 
-const useRepositories = () => {
+const useRepositories = (sort) => {
+  let query = GET_REPOSITORIES;
+
+  if (sort === "highest") {
+    query = GET_REPOS_HIGHEST_RATED;
+  } else if (sort === "lowest") {
+    query = GET_REPOS_LOWEST_RATED;
+  }
+
   // const [repositories, setRepositories] = useState();
 
-  const { data, error, loading, refetch } = useQuery(GET_REPOSITORIES, {
+  const { data, error, loading, refetch } = useQuery(query, {
     fetchPolicy: "cache-and-network",
   });
 
