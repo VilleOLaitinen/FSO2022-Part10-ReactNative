@@ -4,7 +4,7 @@ import { Link } from "react-router-native";
 
 const styles = StyleSheet.create({
   appBarTab: {
-    marginHorizontal: 15,
+    marginHorizontal: 10,
   },
 });
 
