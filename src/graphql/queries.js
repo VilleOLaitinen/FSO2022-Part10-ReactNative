@@ -1,9 +1,10 @@
 import { gql } from "@apollo/client";
 
 export const GET_REPOSITORIES = gql`
-  query Repositories($searchKeyword: String) {
-    repositories(searchKeyword: $searchKeyword) {
+  query Repositories($searchKeyword: String, $after: String, $first: Int) {
+    repositories(searchKeyword: $searchKeyword, after: $after, first: $first) {
       edges {
+        cursor
         node {
           description
           id
@@ -16,19 +17,27 @@ export const GET_REPOSITORIES = gql`
           ownerAvatarUrl
           url
         }
+      }
+      pageInfo {
+        endCursor
+        startCursor
+        hasNextPage
       }
     }
   }
 `;
 
 export const GET_REPOS_HIGHEST_RATED = gql`
-  query Repositories($searchKeyword: String) {
+  query Repositories($searchKeyword: String, $after: String, $first: Int) {
     repositories(
       orderBy: RATING_AVERAGE
       orderDirection: DESC
       searchKeyword: $searchKeyword
+      after: $after
+      first: $first
     ) {
       edges {
+        cursor
         node {
           description
           id
@@ -41,19 +50,27 @@ export const GET_REPOS_HIGHEST_RATED = gql`
           ownerAvatarUrl
           url
         }
+      }
+      pageInfo {
+        endCursor
+        startCursor
+        hasNextPage
       }
     }
   }
 `;
 
 export const GET_REPOS_LOWEST_RATED = gql`
-  query Repositories($searchKeyword: String) {
+  query Repositories($searchKeyword: String, $after: String, $first: Int) {
     repositories(
       orderBy: RATING_AVERAGE
       orderDirection: ASC
       searchKeyword: $searchKeyword
+      after: $after
+      first: $first
     ) {
       edges {
+        cursor
         node {
           description
           id
@@ -67,12 +84,17 @@ export const GET_REPOS_LOWEST_RATED = gql`
           url
         }
       }
+      pageInfo {
+        endCursor
+        startCursor
+        hasNextPage
+      }
     }
   }
 `;
 
 export const GET_SINGLE_REPOSITORY = gql`
-  query Repository($repositoryId: ID!) {
+  query Repository($repositoryId: ID!, $after: String, $first: Int) {
     repository(id: $repositoryId) {
       description
       fullName
@@ -83,7 +105,7 @@ export const GET_SINGLE_REPOSITORY = gql`
       reviewCount
       ownerAvatarUrl
       url
-      reviews {
+      reviews(after: $after, first: $first) {
         edges {
           node {
             id
@@ -95,6 +117,12 @@ export const GET_SINGLE_REPOSITORY = gql`
               username
             }
           }
+          cursor
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          hasNextPage
         }
       }
     }

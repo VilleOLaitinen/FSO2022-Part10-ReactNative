@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-native";
 import { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import { useDebounce } from "use-debounce";
+import theme from "../theme";
 
 const styles = StyleSheet.create({
   separator: {
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingTop: 10,
     paddingHorizontal: 10,
-    backgroundColor: "white",
+    backgroundColor: theme.colors.containerBackground,
   },
 });
 
@@ -36,7 +37,7 @@ export class RepositoryListContainer extends React.Component {
   };
 
   render() {
-    const { repositories, navigationFunction } = this.props;
+    const { repositories, navigationFunction, onEndReach } = this.props;
 
     const repositoryNodes = repositories
       ? repositories.edges.map((edge) => edge.node)
@@ -50,6 +51,8 @@ export class RepositoryListContainer extends React.Component {
           data={repositoryNodes}
           ItemSeparatorComponent={ItemSeparator}
           ListHeaderComponent={this.renderHeader}
+          onEndReached={onEndReach}
+          onEndReachedThreshold={0.5}
           renderItem={({ item }) => (
             <Pressable onPress={() => navFunc(item.id)}>
               <RepositoryItem {...item} />
@@ -95,7 +98,7 @@ const RepositoryList = () => {
   const [filter, setFilter] = useState("");
   const [value] = useDebounce(filter, 500);
   const [selectedSort, setSelectedSort] = useState("newest");
-  const { repositories } = useRepositories(selectedSort, value);
+  const { repositories, fetchMore } = useRepositories(selectedSort, value, 8);
   const navigate = useNavigate();
   const navigateToRepoView = (id) => {
     navigate(`/repositories/${id}`);
@@ -122,11 +125,17 @@ const RepositoryList = () => {
     );
   };
 
+  const onEndReach = () => {
+    console.log("End reached!");
+    fetchMore();
+  };
+
   return (
     <RepositoryListContainer
       header={header}
       repositories={repositories}
       navigationFunction={navigateToRepoView}
+      onEndReach={onEndReach}
     />
   );
 };
